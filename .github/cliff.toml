@@ -1,21 +1,15 @@
 [changelog]
-header = """
-# Changelog\n
-"""
+header = ""
 body = """
-{% if version %}\
-    ## [{{ version | trim_start_matches(pat="v") }}] - {{ timestamp | date(format="%Y-%m-%d") }}
-{% else %}\
-    ## [Unreleased]
+{% if version %}## Release {{ version }}
 {% endif %}\
 {% for group, commits in commits | group_by(attribute="group") %}
-    ### {{ group | striptags | trim | upper_first }}
-    {% for commit in commits %}
-        - {% if commit.scope %}**{{ commit.scope }}:** {% endif %}\
-            {{ commit.message | upper_first }}\
-            {% if commit.breaking %} [**BREAKING**]{% endif %}\
-    {% endfor %}
-{% endfor %}\n
+### {{ group | striptags | trim | upper_first }}
+
+{% for commit in commits %}\
+- {{ commit.message | split(pat="\n") | first }} ({{ commit.id }})
+{% endfor %}
+{% endfor %}\
 """
 footer = ""
 trim = true

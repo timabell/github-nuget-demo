@@ -9,7 +9,7 @@ case "$1" in
     git cliff --config .github/cliff.toml --unreleased
     ;;
   "")
-    git cliff --config .github/cliff.toml
+    git cliff --config .github/cliff.toml --latest
     ;;
   *)
     echo "Unknown flag: $1" >&2
