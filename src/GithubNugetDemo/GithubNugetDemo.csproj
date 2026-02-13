@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>GithubNugetDemo</PackageId>
+    <PackageId>github-nuget-demo</PackageId>
     <Authors>Tim</Authors>
     <Description>Demo package for testing GitHub Packages NuGet publishing</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -16,4 +16,3 @@
   </ItemGroup>
 
 </Project>
-
