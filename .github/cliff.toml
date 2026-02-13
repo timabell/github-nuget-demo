@@ -19,18 +19,11 @@ conventional_commits = false
 filter_unconventional = false
 split_commits = false
 commit_parsers = [
-    { message = "^feat", group = "Features" },
-    { message = "^fix", group = "Bug Fixes" },
-    { message = "^doc", group = "Documentation" },
-    { message = "^perf", group = "Performance" },
-    { message = "^refactor", group = "Refactoring" },
-    { message = "^style", group = "Style" },
-    { message = "^test", group = "Testing" },
-    { message = "^ci", skip = true },
-    { message = "^chore\\(release\\)", skip = true },
-    { message = "^chore", group = "Miscellaneous" },
-    { message = "^build", group = "Build" },
-    { message = ".*", skip = true },
+    { message = "^feat", group = "<!-- 1 -->✨ Features" },
+    { message = "^fix", group = "<!-- 2 -->🐛 Bug Fixes" },
+    { message = "^perf", group = "<!-- 3 -->⚡ Performance" },
+    { message = "^doc", group = "<!-- 4 -->📚 Documentation" },
+    { message = "^style", group = "<!-- 5 -->🎨 Style" },
 ]
 filter_commits = false
 tag_pattern = "v[0-9].*"
