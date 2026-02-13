@@ -31,6 +31,12 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore --configuration Release
+
       - name: Calculate next version
         id: version
         uses: orhun/git-cliff-action@v4
@@ -50,12 +56,6 @@ jobs:
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
 
-      - name: Restore dependencies
-        run: dotnet restore
-
-      - name: Build
-        run: dotnet build --no-restore --configuration Release
-
       - name: Pack NuGet packages
         run: |
           VERSION=${{ steps.version_outputs.outputs.version }}
@@ -65,19 +65,19 @@ jobs:
             -p:PackageVersion=$VERSION \
             --output ./nupkgs
 
-      - name: Push to GitHub Packages
-        run: |
-          dotnet nuget push ./nupkgs/*.nupkg \
-            --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
-            --api-key ${{ secrets.GITHUB_TOKEN }} \
-            --skip-duplicate
-
       - name: Create git tag
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag ${{ steps.version_outputs.outputs.tag }}
           git push origin ${{ steps.version_outputs.outputs.tag }}
+
+      - name: Push to GitHub Packages
+        run: |
+          dotnet nuget push ./nupkgs/*.nupkg \
+            --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --skip-duplicate
 
       - name: Generate changelog
         id: changelog
