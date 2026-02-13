@@ -2,7 +2,25 @@
 
 https://github.com/timabell/github-nuget-demo
 
-A demo of automatic publishing of a c# nuget lib to the github package feeds.
+A demo of automatic publishing of a C# NuGet library to both GitHub Packages and nuget.org.
+
+## Setup
+
+To use this template for your own project, configure these repository secrets (Settings → Secrets → Actions):
+
+| Secret | Description |
+|--------|-------------|
+| `NUGET_API_KEY` | API key from https://www.nuget.org/account/apikeys with push permissions |
+
+The `GITHUB_TOKEN` for GitHub Packages is provided automatically.
+
+### Why both registries?
+
+GitHub Packages requires authentication even for public packages, making it impractical for public distribution. nuget.org allows anonymous access, so consumers can simply run:
+
+```sh
+dotnet add package GithubNugetDemo
+```
 
 ## Automatic Releasing
 
@@ -15,6 +33,7 @@ If there are release-worthy changes (commits with `feat:`, `fix:`, etc.), a rele
 3. Git tag creation
 4. [GitHub Release](https://github.com/timabell/github-nuget-demo/releases) with changelog
 5. Push to [GitHub Packages](https://github.com/timabell/github-nuget-demo/pkgs/nuget/GithubNugetDemo)
+6. Push to [nuget.org](https://www.nuget.org/packages/GithubNugetDemo)
 
 Commits with internal prefixes (`ci:`, `refactor:`, etc.) do not trigger a release.
 
