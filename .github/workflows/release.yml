@@ -79,13 +79,6 @@ jobs:
           git tag ${{ steps.version_outputs.outputs.tag }}
           git push origin ${{ steps.version_outputs.outputs.tag }}
 
-      - name: Push to GitHub Packages
-        run: |
-          dotnet nuget push ./nupkgs/*.nupkg \
-            --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
-            --api-key ${{ secrets.GITHUB_TOKEN }} \
-            --skip-duplicate
-
       - name: Generate changelog
         id: changelog
         uses: orhun/git-cliff-action@v4
@@ -100,3 +93,10 @@ jobs:
           name: ${{ steps.version_outputs.outputs.tag }}
           body: ${{ steps.changelog.outputs.content }}
           files: ./nupkgs/*
+
+      - name: Push to GitHub Packages
+        run: |
+          dotnet nuget push ./nupkgs/*.nupkg \
+            --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \
+            --api-key ${{ secrets.GITHUB_TOKEN }} \
+            --skip-duplicate
