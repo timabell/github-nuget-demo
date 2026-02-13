@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>github-nuget-demo</PackageId>
-    <Authors>Tim</Authors>
+    <Authors>Tim Abell</Authors>
     <Description>Demo package for testing GitHub Packages NuGet publishing</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
