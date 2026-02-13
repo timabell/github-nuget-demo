@@ -1,3 +1,5 @@
+using Xunit;
+
 namespace GithubNugetDemo.Tests;
 
 public class GithubNugetDemoTests
