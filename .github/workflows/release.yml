@@ -37,7 +37,27 @@ jobs:
           name: build-output
           path: src/
 
+      - name: Generate changelog
+        id: changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: .github/cliff.toml
+          args: --unreleased --strip header
+
+      - name: Check for release-worthy changes
+        id: check_changes
+        # git-cliff only includes section headers (###) when there are conventional commits - use that as a heuristic for whether there is anything worth a release in this push
+        run: |
+          if echo "${{ steps.changelog.outputs.content }}" | grep -q '#'; then
+            echo "Release-worthy changes found"
+            echo "should_release=true" >> $GITHUB_OUTPUT
+          else
+            echo "No release-worthy changes found"
+            echo "should_release=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Detect bump type
+        if: steps.check_changes.outputs.should_release == 'true'
         id: bump
         run: |
           BUMP_TYPE=$(.github/workflows/detect-bump.sh)
@@ -45,6 +65,7 @@ jobs:
           echo "Bump type: ${BUMP_TYPE:-patch}"
 
       - name: Calculate next version
+        if: steps.check_changes.outputs.should_release == 'true'
         id: version
         uses: orhun/git-cliff-action@v4
         with:
@@ -54,6 +75,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set version outputs
+        if: steps.check_changes.outputs.should_release == 'true'
         id: version_outputs
         run: |
           VERSION="${{ steps.version.outputs.content }}"
@@ -64,6 +86,7 @@ jobs:
           echo "Version: $VERSION"
 
       - name: Pack NuGet packages
+        if: steps.check_changes.outputs.should_release == 'true'
         run: |
           VERSION=${{ steps.version_outputs.outputs.version }}
           dotnet pack src/GithubNugetDemo/GithubNugetDemo.csproj \
@@ -73,20 +96,15 @@ jobs:
             --output ./nupkgs
 
       - name: Create git tag
+        if: steps.check_changes.outputs.should_release == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git tag ${{ steps.version_outputs.outputs.tag }}
           git push origin ${{ steps.version_outputs.outputs.tag }}
 
-      - name: Generate changelog
-        id: changelog
-        uses: orhun/git-cliff-action@v4
-        with:
-          config: .github/cliff.toml
-          args: --latest
-
       - name: Create GitHub Release
+        if: steps.check_changes.outputs.should_release == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version_outputs.outputs.tag }}
@@ -95,6 +113,7 @@ jobs:
           files: ./nupkgs/*
 
       - name: Push to GitHub Packages
+        if: steps.check_changes.outputs.should_release == 'true'
         run: |
           dotnet nuget push ./nupkgs/*.nupkg \
             --source https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json \

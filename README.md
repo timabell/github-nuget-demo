@@ -6,14 +6,19 @@ A demo of automatic publishing of a c# nuget lib to the github package feeds.
 
 ## Automatic Releasing
 
-Every commit to main triggers:
+Every commit to main triggers a build & test.
 
-1. Build & test
-2. Version calculation (via [git-cliff](https://git-cliff.org/))
-3. NuGet package creation
-4. Git tag creation
+If there are release-worthy changes (commits with `feat:`, `fix:`, etc.), a release is created:
+
+1. Version calculation (via [git-cliff](https://git-cliff.org/))
+2. NuGet package creation
+3. Git tag creation
+4. [GitHub Release](https://github.com/timabell/github-nuget-demo/releases) with changelog
 5. Push to [GitHub Packages](https://github.com/timabell/github-nuget-demo/pkgs/nuget/GithubNugetDemo)
-6. [GitHub Release](https://github.com/timabell/github-nuget-demo/releases) with changelog
+
+Commits with internal prefixes (`ci:`, `refactor:`, etc.) do not trigger a release.
+
+If there are no release-worthy commits then no release is generated.
 
 ## Commit Messages
 
