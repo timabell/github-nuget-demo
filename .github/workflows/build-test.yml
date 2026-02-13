@@ -31,5 +31,5 @@ jobs:
         with:
           name: build-output
           path: |
-            src/**/bin/Release/
-            src/**/obj/Release/
+            src/**/bin/
+            src/**/obj/
