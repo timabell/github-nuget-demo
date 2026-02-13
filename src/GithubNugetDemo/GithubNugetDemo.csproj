@@ -8,7 +8,12 @@
     <PackageId>GithubNugetDemo</PackageId>
     <Authors>Tim</Authors>
     <Description>Demo package for testing GitHub Packages NuGet publishing</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="/"/>
+  </ItemGroup>
 
 </Project>
 
