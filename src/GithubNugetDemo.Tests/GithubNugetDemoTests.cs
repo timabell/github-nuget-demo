@@ -13,4 +13,14 @@ public class GithubNugetDemoTests
 
         Assert.Equal("hello", result);
     }
+
+    [Fact]
+    public void Goodbye_ReturnsGoodbye()
+    {
+        var sut = new GithubNugetDemo();
+
+        var result = sut.Goodbye();
+
+        Assert.Equal("goodbye", result);
+    }
 }
