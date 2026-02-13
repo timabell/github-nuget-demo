@@ -14,13 +14,16 @@ permissions:
   packages: write
 
 jobs:
+  build-test:
+    uses: ./.github/workflows/build-test.yml
+
   release:
+    needs: build-test
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           fetch-tags: true
 
       - name: Setup .NET
