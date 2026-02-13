@@ -21,6 +21,6 @@ public class GithubNugetDemoTests
 
         var result = sut.Goodbye();
 
-        Assert.Equal("goodbye", result);
+        Assert.Equal("goodbye bugs", result);
     }
 }

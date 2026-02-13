@@ -3,5 +3,5 @@
 public class GithubNugetDemo
 {
     public string Hello() => "hello";
-    public string Goodbye() => "goodbye";
+    public string Goodbye() => "goodbye bugs";
 }
