@@ -17,7 +17,41 @@ Every commit to main triggers:
 
 ## Commit Messages
 
-This project uses [Conventional Commits](https://www.conventionalcommits.org/) format for changelog generation. Commits prefixed with `feat:`, `fix:`, `doc:`, etc. will appear in release notes.
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) format. Optionally include a scope in parentheses: `feat(subsystem): add support for arrays`.
+
+### Prefixes that appear in release notes
+
+| Prefix | Description |
+|--------|-------------|
+| `feat:` | ✨ New features |
+| `fix:` | 🐛 Bug fixes |
+| `perf:` | ⚡ Performance improvements |
+| `doc:` | 📚 Documentation changes |
+| `style:` | 🎨 Code style/formatting |
+
+See [cliff.toml](.github/cliff.toml) for definitive list.
+
+### Internal prefixes (not shown in release notes)
+
+These are recommended for consistency but won't appear in user-facing changelogs:
+
+| Prefix | Description |
+|--------|-------------|
+| `refactor:` | Code restructuring without behaviour change |
+| `test:` | Adding or updating tests |
+| `ci:` | CI/CD pipeline changes |
+| `build:` | Build system changes |
+| `chore:` | Maintenance tasks |
+
+### How it works
+
+Release notes are generated from all commits since the last tag, regardless of whether they're on main, in branches, or merge commits. When committing, think about what you want in the release notes:
+
+- Use a release-note prefix (like `feat:` or `fix:`) when the change is meaningful to library users
+- Use an internal prefix (like `refactor:` or `ci:`) for changes that don't affect users
+- Non-semantic commit messages (e.g. "WIP", "typo fix", "cleanup") are also ignored
+
+This means you can commit freely during development without worrying about polluting release notes.
 
 ## Version Bumping
 
@@ -49,10 +83,4 @@ Preview unreleased changes:
 
 ```sh
 ./release-notes.sh --preview
-```
-
-Show next version number:
-
-```sh
-./release-notes.sh --bumped
 ```
