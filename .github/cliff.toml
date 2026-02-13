@@ -34,11 +34,3 @@ commit_parsers = [
 ]
 filter_commits = false
 tag_pattern = "v[0-9].*"
-
-[bump]
-# Disable conventional commit-based bumping
-features_always_bump_minor = false
-breaking_always_bump_major = false
-# Use explicit footer markers for version control
-custom_major_increment_regex = "(?m)^bump: major-version$"
-custom_minor_increment_regex = "(?m)^bump: minor-version$"

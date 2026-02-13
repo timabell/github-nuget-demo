@@ -24,13 +24,13 @@ To bump minor or major versions, add a footer to your commit message:
 ```
 feat: add new feature
 
-bump: minor-version
+bump: minor
 ```
 
 ```
-feat!: breaking change
+feat: breaking change
 
-bump: major-version
+bump: major
 ```
 
 ## Local Commands

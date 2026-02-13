@@ -37,12 +37,19 @@ jobs:
       - name: Build
         run: dotnet build --no-restore --configuration Release
 
+      - name: Detect bump type
+        id: bump
+        run: |
+          BUMP_TYPE=$(.github/workflows/detect-bump.sh)
+          echo "type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          echo "Bump type: ${BUMP_TYPE:-patch}"
+
       - name: Calculate next version
         id: version
         uses: orhun/git-cliff-action@v4
         with:
           config: .github/cliff.toml
-          args: --bumped-version
+          args: ${{ steps.bump.outputs.type && format('--bump {0} --bumped-version', steps.bump.outputs.type) || '--bumped-version' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
