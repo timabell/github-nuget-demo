@@ -1,6 +1,8 @@
 # Github nuget demo
 
-https://github.com/timabell/github-nuget-demo
+- Repo https://github.com/timabell/github-nuget-demo
+- Nuget package https://www.nuget.org/packages/github-nuget-demo/
+- Github hosted package https://github.com/timabell/github-nuget-demo/pkgs/nuget/github-nuget-demo (requires gh auth)
 
 A demo of automatic publishing of a C# NuGet library to both GitHub Packages and nuget.org.
 
