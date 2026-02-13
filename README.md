@@ -9,11 +9,15 @@ A demo of automatic publishing of a c# nuget lib to the github package feeds.
 Every commit to main triggers:
 
 1. Build & test
-2. Version calculation (via git-cliff)
+2. Version calculation (via [git-cliff](https://git-cliff.org/))
 3. NuGet package creation
 4. Git tag creation
 5. Push to [GitHub Packages](https://github.com/timabell/github-nuget-demo/pkgs/nuget/GithubNugetDemo)
 6. [GitHub Release](https://github.com/timabell/github-nuget-demo/releases) with changelog
+
+## Commit Messages
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) format for changelog generation. Commits prefixed with `feat:`, `fix:`, `doc:`, etc. will appear in release notes.
 
 ## Version Bumping
 
