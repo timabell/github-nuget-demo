@@ -1,6 +1,6 @@
 #!/bin/sh
 # Detect version bump type from commit footers since last tag
-# Outputs: major, minor, or empty (for patch)
+# Outputs: major, minor, or patch
 #
 # Why not use git-cliff's custom_minor_increment_regex?
 # git-cliff's regex only matches against the conventional commit TYPE
@@ -21,4 +21,6 @@ if echo "$COMMITS" | grep -qE '^bump: major$'; then
   echo "major"
 elif echo "$COMMITS" | grep -qE '^bump: minor$'; then
   echo "minor"
+else
+  echo "patch"
 fi
