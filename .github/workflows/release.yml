@@ -17,7 +17,7 @@ jobs:
   build-test:
     uses: ./.github/workflows/build-test.yml
 
-  check:
+  should-release-check:
     needs: build-test
     runs-on: ubuntu-latest
     outputs:
@@ -49,8 +49,8 @@ jobs:
           fi
 
   release:
-    needs: check
-    if: needs.check.outputs.should_release == 'true'
+    needs: should-release-check
+    if: needs.should-release-check.outputs.should_release == 'true'
     runs-on: ubuntu-latest
 
     steps:
@@ -116,7 +116,7 @@ jobs:
         with:
           tag_name: ${{ steps.version_outputs.outputs.tag }}
           name: ${{ steps.version_outputs.outputs.tag }}
-          body: ${{ needs.check.outputs.changelog }}
+          body: ${{ needs.should-release-check.outputs.changelog }}
           files: ./nupkgs/*
 
       - name: Push to GitHub Packages
