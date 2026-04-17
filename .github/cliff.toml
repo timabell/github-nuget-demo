@@ -21,9 +21,10 @@ split_commits = false
 commit_parsers = [
     { message = "^feat", group = "<!-- 1 -->✨ Features" },
     { message = "^fix", group = "<!-- 2 -->🐛 Bug Fixes" },
-    { message = "^perf", group = "<!-- 3 -->⚡ Performance" },
-    { message = "^doc", group = "<!-- 4 -->📚 Documentation" },
-    { message = "^style", group = "<!-- 5 -->🎨 Style" },
+    { message = "^security", group = "<!-- 3 -->🔒 Security" },
+    { message = "^perf", group = "<!-- 4 -->⚡ Performance" },
+    { message = "^doc", group = "<!-- 5 -->📚 Documentation" },
+    { message = "^chore", group = "<!-- 6 -->🔧 Chore" },
 ]
 filter_commits = false
 tag_pattern = "v[0-9].*"
