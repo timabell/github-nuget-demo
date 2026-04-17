@@ -98,6 +98,9 @@ jobs:
           echo "tag=v$VERSION" >> $GITHUB_OUTPUT
           echo "Version: $VERSION"
 
+      - name: Restore dependencies
+        run: dotnet restore src/GithubNugetDemo/GithubNugetDemo.csproj
+
       - name: Pack NuGet packages
         run: |
           VERSION=${{ steps.version_outputs.outputs.version }}
