@@ -16,11 +16,11 @@ major_version=$(echo "$latest" | cut -d. -f1)
 target_framework="net${major_version}.0"
 echo "Updating TargetFramework to $target_framework"
 
-# Update test & example project (single TFM - always tracks latest)
+# Update test & example project (single target framework - always tracks latest)
 sed -i "s|<TargetFramework>net[0-9]*\.0</TargetFramework>|<TargetFramework>${target_framework}</TargetFramework>|g" src/GithubNugetDemo.Tests/GithubNugetDemo.Tests.csproj
 sed -i "s|<TargetFramework>net[0-9]*\.0</TargetFramework>|<TargetFramework>${target_framework}</TargetFramework>|g" example-consumer/example-consumer.csproj
 
-# Update src project (multi-TFM - append new version to keep backwards compatibility)
+# Update src project (multi-target framework - append new version to keep backwards compatibility)
 if ! grep -q "${target_framework}" src/GithubNugetDemo/GithubNugetDemo.csproj; then
   sed -i "s|</TargetFrameworks>|;${target_framework}</TargetFrameworks>|g" src/GithubNugetDemo/GithubNugetDemo.csproj
 fi
