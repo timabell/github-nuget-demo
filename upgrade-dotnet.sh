@@ -9,7 +9,8 @@ fi
 latest=`mise ls-remote dotnet-core | grep -P '^\d+\.\d+\.\d+$' | sort --version-sort | tail -n 1`
 echo "Updating to dotnet-core@$latest"
 
-mise use "dotnet-core@$latest"
+# Update global.json (this is what dotnet actually honours)
+sed -i "s|\"version\": \"[0-9.]*\"|\"version\": \"$latest\"|" global.json
 
 # Extract major version (e.g., "10" from "10.0.100")
 major_version=$(echo "$latest" | cut -d. -f1)
@@ -25,7 +26,7 @@ if ! grep -q "${target_framework}" src/GithubNugetDemo/GithubNugetDemo.csproj; t
   sed -i "s|</TargetFrameworks>|;${target_framework}</TargetFrameworks>|g" src/GithubNugetDemo/GithubNugetDemo.csproj
 fi
 
-if git diff --quiet mise.toml \
+if git diff --quiet global.json \
   example-consumer/example-consumer.csproj \
   src/GithubNugetDemo/GithubNugetDemo.csproj \
   src/GithubNugetDemo.Tests/GithubNugetDemo.Tests.csproj; then
@@ -34,10 +35,11 @@ if git diff --quiet mise.toml \
 fi
 
 echo "Running regression tests..."
+mise install dotnet
 dotnet test
 
 echo "Committing upgrades..."
-git commit --include mise.toml \
+git commit --include global.json \
 --include example-consumer/example-consumer.csproj \
 --include src/GithubNugetDemo/GithubNugetDemo.csproj \
 --include src/GithubNugetDemo.Tests/GithubNugetDemo.Tests.csproj \
