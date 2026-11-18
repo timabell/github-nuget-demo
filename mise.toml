@@ -1,2 +1,3 @@
 [tools]
+dotnet = "11.0.100"
 dotnet-core = "10.0.202"
