@@ -44,7 +44,15 @@ If there are release-worthy changes (commits with `feat:`, `fix:`, etc.), a rele
 
 Commits with internal prefixes (`ci:`, `refactor:`, etc.) do not trigger a release.
 
-If there are no release-worthy commits then no release is generated.
+If there are no release-worthy commits then no release is generated, unless a `bump:` footer forces one (see [Version Bumping](#version-bumping)).
+
+## Target Frameworks
+
+The library multi-targets (currently `net8.0` to `net11.0`) so consumers on older runtimes can still use it. The test and [example consumer](example-consumer/) projects target only the latest.
+
+## Example Consumer
+
+[example-consumer](example-consumer/) is a console app that installs the published package from nuget.org, to show it working from the consumer side.
 
 ## Commit Messages
 
@@ -102,6 +110,8 @@ feat: breaking change
 bump: major
 ```
 
+Any `bump:` footer, including `bump: patch`, forces a release even when there are no release-worthy commits, e.g. to ship dependency upgrades committed as `chore:`.
+
 ## Local Commands
 
 Preview release notes for the current version:
@@ -115,3 +125,21 @@ Preview unreleased changes:
 ```sh
 ./release-notes.sh --preview
 ```
+
+## Upgrades
+
+Run all upgrades:
+
+```sh
+./upgrades.sh
+```
+
+Or individually. Each script refuses to run with staged changes and commits its own result:
+
+| Script | What it does | Needs |
+|--------|--------------|-------|
+| `upgrade-dotnet.sh` | Moves to the latest .NET SDK, retargets the test and example projects, adds the new framework to the library's targets, runs tests | [mise](https://mise.jdx.dev/) |
+| `upgrade-nugets.sh` | Upgrades NuGet dependencies, runs tests | [dotnet-outdated](https://github.com/dotnet-outdated/dotnet-outdated) (installed if missing) |
+| `upgrade-actions.sh` | Bumps GitHub Actions in `.github/workflows` to the major version of their latest release | [gh](https://cli.github.com/) |
+
+Upgrade commits use internal prefixes (`chore:`, `ci:`) so they don't trigger a release on their own; add a `bump: patch` footer if you want them released.
