@@ -30,4 +30,5 @@ git commit --include mise.toml \
 --include example-consumer/example-consumer.csproj \
 --include src/GithubNugetDemo/GithubNugetDemo.csproj \
 --include src/GithubNugetDemo.Tests/GithubNugetDemo.Tests.csproj \
---message "chore: Dependency upgrades (nuget)"
+--message "chore: Dependency upgrades (nuget)" \
+--message 'Upgraded by `upgrade-nugets.sh`'

@@ -41,4 +41,5 @@ git commit --include mise.toml \
 --include example-consumer/example-consumer.csproj \
 --include src/GithubNugetDemo/GithubNugetDemo.csproj \
 --include src/GithubNugetDemo.Tests/GithubNugetDemo.Tests.csproj \
---message "chore: Upgrade build to dotnet $latest"
+--message "chore: Upgrade build to dotnet $latest" \
+--message 'Upgraded by `upgrade-dotnet.sh`'
