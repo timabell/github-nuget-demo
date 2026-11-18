@@ -4,7 +4,12 @@
 - Nuget package https://www.nuget.org/packages/github-nuget-demo/
 - Github hosted package https://github.com/timabell/github-nuget-demo/pkgs/nuget/github-nuget-demo (requires gh auth)
 
-A demo of automatic publishing of a C# NuGet library to both GitHub Packages and nuget.org.
+A demo of automatic publishing of a C# NuGet library to:
+
+- GitHub Packages
+- nuget.org
+
+complete with [automatic release notes from semantic commits (blog post)](https://0x5.uk/2026/03/12/automatic-release-notes-with-semantic-commits-and-git-cliff/), and automatic version bumping from commit message "bumps".
 
 ## Setup
 
