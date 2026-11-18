@@ -142,4 +142,4 @@ Or individually. Each script refuses to run with staged changes and commits its 
 | `upgrade-nugets.sh` | Upgrades NuGet dependencies, runs tests | [dotnet-outdated](https://github.com/dotnet-outdated/dotnet-outdated) (installed if missing) |
 | `upgrade-actions.sh` | Bumps GitHub Actions in `.github/workflows` to the major version of their latest release | [gh](https://cli.github.com/) |
 
-Upgrade commits use internal prefixes (`chore:`, `ci:`) so they don't trigger a release on their own; add a `bump: patch` footer if you want them released.
+The dotnet and NuGet upgrade commits include a `bump: patch` footer so consumers get a release with the new dependencies. The actions upgrade only affects CI, so it does not trigger a release.

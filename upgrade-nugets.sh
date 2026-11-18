@@ -31,4 +31,5 @@ git commit --include mise.toml \
 --include src/GithubNugetDemo/GithubNugetDemo.csproj \
 --include src/GithubNugetDemo.Tests/GithubNugetDemo.Tests.csproj \
 --message "chore: Dependency upgrades (nuget)" \
---message 'Upgraded by `upgrade-nugets.sh`'
+--message 'Upgraded by `upgrade-nugets.sh`' \
+--message 'bump: patch'

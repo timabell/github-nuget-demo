@@ -42,4 +42,5 @@ git commit --include mise.toml \
 --include src/GithubNugetDemo/GithubNugetDemo.csproj \
 --include src/GithubNugetDemo.Tests/GithubNugetDemo.Tests.csproj \
 --message "chore: Upgrade build to dotnet $latest" \
---message 'Upgraded by `upgrade-dotnet.sh`'
+--message 'Upgraded by `upgrade-dotnet.sh`' \
+--message 'bump: patch'
