@@ -1,6 +1,10 @@
 #!/bin/sh
-# Detect version bump type from commit footers since last tag
-# Outputs: major, minor, or patch
+# Detect explicit version bump from commit footers since last tag
+# Outputs: major, minor, patch, or nothing if no footer found
+#
+# Usage: Add a footer line "bump: major", "bump: minor" or "bump: patch"
+# to any commit. Any of these forces a release even if no commits are
+# otherwise release-worthy.
 #
 # Why not use git-cliff's custom_minor_increment_regex?
 # git-cliff's regex only matches against the conventional commit TYPE
@@ -17,10 +21,9 @@ else
   COMMITS=$(git log "$LAST_TAG"..HEAD --format=%B)
 fi
 
-if echo "$COMMITS" | grep -qE '^bump: major$'; then
-  echo "major"
-elif echo "$COMMITS" | grep -qE '^bump: minor$'; then
-  echo "minor"
-else
-  echo "patch"
-fi
+for type in major minor patch; do
+  if echo "$COMMITS" | grep -qE "^bump: $type$"; then
+    echo "$type"
+    exit 0
+  fi
+done
