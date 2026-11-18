@@ -8,11 +8,16 @@ A demo of automatic publishing of a C# NuGet library to both GitHub Packages and
 
 ## Setup
 
-To use this template for your own project, configure these repository secrets (Settings → Secrets → Actions):
+nuget.org publishing uses [trusted publishing](https://learn.microsoft.com/en-us/nuget/nuget-org/trusted-publishing) (GitHub OIDC), so there is no long-lived API key to manage.
+
+To use this template for your own project:
+
+1. On nuget.org, open your username menu → Trusted Publishing and add a GitHub Actions policy with your repo owner, repo name, and workflow file `release.yml`.
+2. Add a repository secret (Settings → Secrets → Actions):
 
 | Secret | Description |
 |--------|-------------|
-| `NUGET_API_KEY` | API key from https://www.nuget.org/account/apikeys with push permissions |
+| `NUGET_USER` | Your nuget.org username (profile name, not email) |
 
 The `GITHUB_TOKEN` for GitHub Packages is provided automatically.
 
